@@ -7,3 +7,5 @@ This Part 1 contains 4 folders:
   - Exercises 1.6 - 1.11
 - anecdotes
   - Exercises 1.12 - 1.14
+
+Note: I made a separate commit for each exercise.
