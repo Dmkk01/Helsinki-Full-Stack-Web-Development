@@ -16,7 +16,6 @@ const App = () => {
   
   const handleAnecdote = () => {
     let ran = Math.floor(Math.random() * anecdotes.length);
-    console.log(ran)
     setSelected(ran)
   }
 
@@ -27,12 +26,22 @@ const App = () => {
     setVotes(copy)
   }
 
+  const maxVotes = () => {
+    let arr = Object.values(votes);
+    let max = Math.max(...arr);
+    const key = Object.keys(votes).find(key => votes[key] === max);
+    return key
+  }
   return (
     <div>
+      <h1> Anecdote of the day</h1>
       <p> {anecdotes[selected]} </p>
       <p> has {votes[selected]} votes</p>
       <button onClick={handleVote}> vote </button>
       <button onClick={handleAnecdote}> next anecdote</button>
+      <h1> Anecdote with the most votes</h1>
+      <p> {anecdotes[maxVotes()]} </p>
+      <p> has {votes[maxVotes()]} votes</p>
     </div>
   )
 }
