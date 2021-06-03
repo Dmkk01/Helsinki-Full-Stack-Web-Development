@@ -2,16 +2,23 @@ import React, { useState } from 'react'
 
 
 const Statistics = (props) => {
-  return (
-    <>
-      <p> good: {props.values[0]}</p>
-      <p> neutral: {props.values[1]}</p>
-      <p> bad: {props.values[2]}</p>
-      <p> all: {props.functions[0](props.values[0], props.values[1], props.values[2])}</p>
-      <p> average: {props.functions[1](props.values[0], props.values[1], props.values[2])}</p>
-      <p> positive: {props.functions[2](props.values[0], props.values[1], props.values[2])}</p>
-    </>
-  )
+  if (props.functions[0](props.values[0], props.values[1], props.values[2]) === 0) {
+    return (
+      <p> No feedback given</p>
+    )
+  }
+  else {
+    return (
+      <>
+        <p> good: {props.values[0]}</p>
+        <p> neutral: {props.values[1]}</p>
+        <p> bad: {props.values[2]}</p>
+        <p> all: {props.functions[0](props.values[0], props.values[1], props.values[2])}</p>
+        <p> average: {props.functions[1](props.values[0], props.values[1], props.values[2])}</p>
+        <p> positive: {props.functions[2](props.values[0], props.values[1], props.values[2])} %</p>
+      </>
+    )
+  }
 }
 const App = () => {
   // save clicks of each button to its own state
