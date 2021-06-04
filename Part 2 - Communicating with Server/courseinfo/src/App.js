@@ -10,7 +10,6 @@ const Total = ({ course }) => {
   const sum = course.parts.reduce((total, arr) => {
     return total + arr.exercises
   }, 0)
-  // const sum = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises
   return(
     <h4>Total of {sum} exercises</h4>
   ) 
