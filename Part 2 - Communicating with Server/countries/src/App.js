@@ -15,7 +15,7 @@ const CountrySolo = ({countrySolo}) => {
     </>
   )
 }
-const CountryList = ({countries}) => {
+const CountryList = ({countries, changeFilter}) => {
   if (!countries) {
     return (
       <p> Too many matches, specify another filter</p>
@@ -29,7 +29,7 @@ const CountryList = ({countries}) => {
   else {
     return (
       <>
-        {countries.map(con => <p key={con.name}> {con.name}</p>)}
+        {countries.map(con => <p key={con.name}> {con.name} <button onClick={() => changeFilter(con.name)}> show </button></p>)}
       </>
     ) 
   }
@@ -65,7 +65,7 @@ const App = () => {
     <>
     <div>
       Find countries: <input value={filter} onChange={handleFilterChange}/>
-      <CountryList countries={countriesToShow()}/>
+      <CountryList countries={countriesToShow()} changeFilter={setFilter}/>
     </div>
     </>
   );
