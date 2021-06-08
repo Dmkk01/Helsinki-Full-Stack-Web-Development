@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react'
 import personService from './services/persons'
 
 
-const Persons = ({persons}) => {
+const Persons = ({persons, del}) => {
   return (
     <>
-    {persons.map(person => <Person name={person.name} number={person.number} key={person.name}/>)}
+    {persons.map((person, index) => <Person name={person.name} number={person.number} 
+                                            key={index} del={del} index={index}/>)}
     </>
   )
 }
-const Person = ({name, number}) => {
+const Person = ({name, number, del, index}) => {
   return (
-    <p> {name} {number}</p>
+    <p> {name} {number} <button onClick={() => del(name, index + 1)}> delete</button></p>
   )
 }
 
@@ -97,6 +98,13 @@ const App = () => {
     }   
   }
 
+  const del = (name, id) => {
+    if (window.confirm(`Delete ${name} ?`)) {
+      personService.deletePerson(id)
+      setPersons(persons.filter(n => n.id !== id))
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -105,7 +113,7 @@ const App = () => {
       <Form addPerson={addPerson} newName={newName} handlePersonChange={handlePersonChange} 
             newNumber={newNumber}  handlePhoneChange={handlePhoneChange}/>
       <h2>Numbers</h2>
-      <Persons persons={personsToShow()}/>
+      <Persons persons={personsToShow()} del={del}/>
     </div>
   )
 }
