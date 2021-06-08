@@ -41,11 +41,26 @@ const Form = ({addPerson, newName, handlePersonChange, newNumber, handlePhoneCha
 }
 
 
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="msg">
+      {message}
+    </div>
+  )
+}
+
+
+
 const App = () => {
   const [ persons, setPersons ] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [filter, setFilter] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
 
 
   useEffect(() => {
@@ -71,22 +86,25 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     let check = persons.filter( person => (person.name === newName))
-    if (check[0].number === newNumber && check[0].name === newName) {
-      window.alert(`${newName} is already added to phonebook`);
-    }
-    else if (check[0].number !== newNumber && check[0].name === newName) {
-      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one ?`)) {
-        const per = persons.find( n => n.name === newName)
-        const changedPerson = { ...per, number: newNumber}
-        personService
-          .update(per.id, changedPerson)
-          .then(returned => {
-            setPersons(persons.map(person => person.id !== per.id ? person : returned))
-          })
-        setNewName('')
-        setNewNumber('')
+    if (check.length !== 0 ) {
+      if (check[0].number === newNumber) {
+        window.alert(`${newName} is already added to phonebook`);
       }
-    }
+      else {
+        if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one ?`)) {
+          const per = persons.find( n => n.name === newName)
+          const changedPerson = { ...per, number: newNumber}
+          personService
+            .update(per.id, changedPerson)
+            .then(returned => {
+              setPersons(persons.map(person => person.id !== per.id ? person : returned))
+            })
+          setNewName('')
+          setNewNumber('')
+          displayMessage(changedPerson.name)
+        }
+      }
+      } 
     else {
       const personObject = {
         name: newName,
@@ -99,6 +117,7 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
+      displayMessage(personObject.name)
     }
   }
 
@@ -118,9 +137,19 @@ const App = () => {
     }
   }
 
+  const displayMessage = (name) => {
+    setErrorMessage(
+      `Added ${name}`
+    )
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 5000)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage}/>
       <Filter filter={filter} handleFilter={handleFilter}/>
       <h2> Add a new</h2>
       <Form addPerson={addPerson} newName={newName} handlePersonChange={handlePersonChange} 
