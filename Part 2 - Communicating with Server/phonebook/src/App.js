@@ -5,14 +5,14 @@ import personService from './services/persons'
 const Persons = ({persons, del}) => {
   return (
     <>
-    {persons.map((person, index) => <Person name={person.name} number={person.number} 
-                                            key={index} del={del} index={index}/>)}
+    {persons.map(person => <Person name={person.name} number={person.number} 
+                                            key={person.id} del={del} index={person.id}/>)}
     </>
   )
 }
 const Person = ({name, number, del, index}) => {
   return (
-    <p> {name} {number} <button onClick={() => del(name, index + 1)}> delete</button></p>
+    <p> {name} {number} <button onClick={() => del(name, index)}> delete</button></p>
   )
 }
 
@@ -99,9 +99,12 @@ const App = () => {
             .then(returned => {
               setPersons(persons.map(person => person.id !== per.id ? person : returned))
             })
+            .catch(error => {
+              displayMessage(`The information of ${per.name} has already been removed from server`)
+            })
           setNewName('')
           setNewNumber('')
-          displayMessage(changedPerson.name)
+          displayMessage(`The number of ${changedPerson.name} has been changed`)
         }
       }
       } 
@@ -117,7 +120,7 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
-      displayMessage(personObject.name)
+      displayMessage(`Added ${personObject.name}`)
     }
   }
 
@@ -131,16 +134,15 @@ const App = () => {
   }
 
   const del = (name, id) => {
-    if (window.confirm(`Delete ${name} ?`)) {
+    if (window.confirm(`Delete ${name} ${id} ?`)) {
+      displayMessage(`${name} was deleted`)
       personService.deletePerson(id)
       setPersons(persons.filter(n => n.id !== id))
     }
   }
 
-  const displayMessage = (name) => {
-    setErrorMessage(
-      `Added ${name}`
-    )
+  const displayMessage = (text) => {
+    setErrorMessage(text)
     setTimeout(() => {
       setErrorMessage(null)
     }, 5000)
