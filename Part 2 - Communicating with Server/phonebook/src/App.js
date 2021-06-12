@@ -119,8 +119,13 @@ const App = () => {
         setPersons(persons.concat(returnedNote))
         setNewName('')
         setNewNumber('')
-      })
-      displayMessage(`Added ${personObject.name}`)
+        displayMessage(`Added ${personObject.name}`)
+        })
+        .catch(error => {
+          displayMessage(error.response.data.error)
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
 
