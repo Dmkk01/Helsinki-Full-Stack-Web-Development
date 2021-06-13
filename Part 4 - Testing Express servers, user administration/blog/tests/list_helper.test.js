@@ -100,3 +100,11 @@ describe('favourite blog', () => {
         expect(result).toEqual(correct)
     })
 })
+
+describe('the most common author', () => {
+    test('return the correct object', () => {
+        const result = listHelper.mostBlogs(listWithFewBlogs)
+        const correct = {"author": "Robert C. Martin", "blogs": 3}
+        expect(result).toEqual(correct)
+    })
+})
