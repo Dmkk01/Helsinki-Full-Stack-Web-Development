@@ -108,3 +108,11 @@ describe('the most common author', () => {
         expect(result).toEqual(correct)
     })
 })
+
+describe('the most likes', () => {
+    test('returns the correct object', () => {
+        const result = listHelper.mostLikes(listWithFewBlogs)
+        const correct = {"author": "Edsger W. Dijkstra", "likes": 17}
+        expect(result).toEqual(correct)
+    })
+})
