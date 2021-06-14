@@ -7,6 +7,11 @@ const oneBlog = {
     url: 'Yes.com',
     likes: 10,
   }
+  const oneBlogNoLikes = {
+    title: 'No',
+    author: 'No',
+    url: 'No.com',
+  }
 
 const initialBlogs = [
     {
@@ -47,5 +52,5 @@ const blogsInDb = async () => {
   }
 
 module.exports = {
-    oneBlog, initialBlogs, blogsInDb
+    oneBlog, oneBlogNoLikes, initialBlogs, blogsInDb
 }

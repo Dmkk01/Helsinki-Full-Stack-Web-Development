@@ -30,6 +30,12 @@ describe('blog posts', () => {
         const blogss = await helper.blogsInDb()
         expect(blogss.length).toBe(helper.initialBlogs.length + 1)
       })
+      test('gives 0 likes if not included', async() => {
+        await api.post('/api/blogs').send(helper.oneBlogNoLikes)
+        const blogss = await helper.blogsInDb()
+        expect(blogss.map(n => n.likes)).toContain(0)
+        expect(blogss.map(n => n.likes)).not.toContain(undefined)
+      })
 })
   
   afterAll(() => {
