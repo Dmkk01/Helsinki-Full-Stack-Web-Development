@@ -25,6 +25,11 @@ describe('blog posts', () => {
         const response = await api.get('/api/blogs')
         expect(response.body[0].id).toBeDefined()
       })
+      test('can post new blog post', async () => {
+        await api.post('/api/blogs').send(helper.oneBlog)
+        const blogss = await helper.blogsInDb()
+        expect(blogss.length).toBe(helper.initialBlogs.length + 1)
+      })
 })
   
   afterAll(() => {
