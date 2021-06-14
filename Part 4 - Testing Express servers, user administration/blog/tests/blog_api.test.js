@@ -36,6 +36,9 @@ describe('blog posts', () => {
         expect(blogss.map(n => n.likes)).toContain(0)
         expect(blogss.map(n => n.likes)).not.toContain(undefined)
       })
+      test('respond 400 if title and url missing', async() => {
+        await api.post('/api/blogs').send(helper.oneBlogMissing).expect(400)
+      })
 })
   
   afterAll(() => {

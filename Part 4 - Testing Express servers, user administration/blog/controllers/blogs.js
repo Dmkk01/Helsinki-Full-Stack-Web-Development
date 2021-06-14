@@ -8,6 +8,9 @@ blogRouter.get('/', async (request, response) => {
   
   blogRouter.post('/', async (request, response) => {
     const blog = new Blog(request.body)
+    if (request.body.title === undefined && request.body.url === undefined) {
+      response.status(400).end()
+    }
     const savedBlog = await blog.save()
     response.status(201).json(savedBlog.toJSON())
   })
