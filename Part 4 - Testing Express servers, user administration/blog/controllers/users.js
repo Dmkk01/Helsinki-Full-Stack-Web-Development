@@ -3,8 +3,11 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 
 usersRouter.post('/', async (request, response) => {
+  
   const body = request.body
-
+  if (body.password.length < 3 || body.username.length < 3) {
+    return response.status(400).send('Username/Password have length shorter than 3').end()
+  }
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(body.password, saltRounds)
 

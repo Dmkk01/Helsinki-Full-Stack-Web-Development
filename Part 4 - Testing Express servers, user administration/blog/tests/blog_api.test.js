@@ -6,6 +6,7 @@ const helper = require('./test_helper')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -40,7 +41,15 @@ describe('blog posts', () => {
         await api.post('/api/blogs').send(helper.oneBlogMissing).expect(400)
       })
 })
-  
+
+describe('Blog users', () => {
+  test('wrong password', async () => {
+    const user1 = await api.post('/api/users').send(helper.oneUser)
+    const user2 = await api.post('/api/users').send(helper.badUser)
+    const users = await helper.usersInDb()
+    expect(users.length).toBe(1)
+  })
+})
   afterAll(() => {
     mongoose.connection.close()
   })
