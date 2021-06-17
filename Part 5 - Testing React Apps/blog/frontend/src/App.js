@@ -57,24 +57,24 @@ const App = () => {
     setUser(null)
   }
 
-  // const handleLikes = (event) => {
-  //   event.preventDefault()
-  //   const id = event.target.value
-  //   const blog = blogs.find(n => n.id === id)
-  //   const changedBlog = {
-  //     title: blog.title,
-  //     author: blog.author,
-  //     url: blog.url,
-  //     likes: blog.likes + 1,
-  //     user: blog.user.id
-  //   }
-  //   blogService
-  //     .update(id, changedBlog)
-  //     .then(returnedBlog => {
-  //       setBlogs(blogs.map(blog => blog.id !== id ? blog : returnedBlog))
-  //     })
+  const handleLikes = (event) => {
+    event.preventDefault()
+    const id = event.target.value
+    const blog = blogs.find(n => n.id === id)
+    const changedBlog = {
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
+      likes: blog.likes + 1,
+      user: blog.user.id
+    }
+    blogService
+      .update(id, changedBlog)
+      .then(returnedBlog => {
+        setBlogs(blogs.map(blog => blog.id !== id ? blog : returnedBlog))
+      })
 
-  // }
+  }
 
 
   if (user === null) {
