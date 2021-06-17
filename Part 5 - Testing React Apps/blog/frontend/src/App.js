@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
@@ -31,7 +32,7 @@ const App = () => {
     }
   }, [])
 
- const handleLogin = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
     try {
       const user = await loginService.login({
@@ -82,9 +83,9 @@ const App = () => {
     const blog = blogs.find(n => n.id === id)
     if (window.confirm(`Do you want to remove the ${blog.title} by ${blog.author}`)) {
       blogService.removePost(id)
-      .catch(error => {
-         setBlogs(blogs.filter(n => n.id !== id))
-      })
+        .catch(() => {
+          setBlogs(blogs.filter(n => n.id !== id))
+        })
       setBlogs(blogs.filter(n => n.id !== id))
     }
   }
@@ -95,8 +96,8 @@ const App = () => {
       <div>
         <h2>Log in to application</h2>
         <Notification message={errorMessage} />
-        <FormLogin handleLogin={handleLogin} handleUsername={({ target }) => setUsername(target.value)} 
-          handlePassword={({ target }) => setPassword(target.value)} username={username} password={password}/>
+        <FormLogin handleLogin={handleLogin} handleUsername={({ target }) => setUsername(target.value)}
+          handlePassword={({ target }) => setPassword(target.value)} username={username} password={password} />
       </div>
     )
   }
@@ -110,11 +111,11 @@ const App = () => {
         <button type='button' onClick={handleLogout}>logout</button>
       </p>
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
-        <FormBlog setBlogs={setBlogs} setErrorMessage={setErrorMessage} blogs={blogs} blogFormRef={blogFormRef}/>
+        <FormBlog setBlogs={setBlogs} setErrorMessage={setErrorMessage} blogs={blogs} blogFormRef={blogFormRef} />
       </Togglable>
       {blogs.sort((a, b) => b.likes - a.likes).map(blog => <Blog key={blog.id} blog={blog} handleLikes={handleLikes} handleRemove={handleRemove} />)}
     </div>
   )
 }
 
-export default App;
+export default App
