@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -16,11 +17,11 @@ const FormLogin = ({ handleLogin, handleUsername, handlePassword, username, pass
       <form onSubmit={handleLogin}>
         <div>
           Username
-            <input type="text" value={username} name="Username" onChange={handleUsername}/>
+          <input type="text" value={username} name="Username" onChange={handleUsername}/>
         </div>
         <div>
           Password
-            <input type="password" value={password} name="Password" onChange={handlePassword}/>
+          <input type="password" value={password} name="Password" onChange={handlePassword}/>
         </div>
         <button type="submit">login</button>
       </form>

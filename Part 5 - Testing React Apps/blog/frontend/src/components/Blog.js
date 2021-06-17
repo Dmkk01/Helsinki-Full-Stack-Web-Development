@@ -1,6 +1,9 @@
-import React, {useState} from 'react'
+/* eslint-disable linebreak-style */
+import React, { useState } from 'react'
 
 const Blog = ({ blog, handleLikes, handleRemove }) => {
+
+  Blog.displayName = 'Blog'
   const [expanded, setExpanded] = useState(false)
 
   const hideWhenExpanded = { display: expanded ? 'none' : '' }
@@ -27,6 +30,6 @@ const Blog = ({ blog, handleLikes, handleRemove }) => {
         <button type='button' value={blog.id} onClick={handleRemove}>delete</button>
       </div>
     </div>
-)}
+  )}
 
 export default Blog
