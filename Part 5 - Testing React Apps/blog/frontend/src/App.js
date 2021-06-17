@@ -57,6 +57,25 @@ const App = () => {
     setUser(null)
   }
 
+  // const handleLikes = (event) => {
+  //   event.preventDefault()
+  //   const id = event.target.value
+  //   const blog = blogs.find(n => n.id === id)
+  //   const changedBlog = {
+  //     title: blog.title,
+  //     author: blog.author,
+  //     url: blog.url,
+  //     likes: blog.likes + 1,
+  //     user: blog.user.id
+  //   }
+  //   blogService
+  //     .update(id, changedBlog)
+  //     .then(returnedBlog => {
+  //       setBlogs(blogs.map(blog => blog.id !== id ? blog : returnedBlog))
+  //     })
+
+  // }
+
 
   if (user === null) {
     return (
@@ -80,7 +99,7 @@ const App = () => {
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
         <FormBlog setBlogs={setBlogs} setErrorMessage={setErrorMessage} blogs={blogs} blogFormRef={blogFormRef}/>
       </Togglable>
-      {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
+      {blogs.map(blog => <Blog key={blog.id} blog={blog} handleLikes={handleLikes} />)}
     </div>
   )
 }
