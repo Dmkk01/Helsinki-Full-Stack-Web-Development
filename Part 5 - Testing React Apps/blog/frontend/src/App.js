@@ -12,9 +12,6 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newUrl, setNewUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const blogFormRef = React.createRef()
 
@@ -60,28 +57,6 @@ const App = () => {
     setUser(null)
   }
 
-  const addBlog = (event) => {
-    event.preventDefault()
-    blogFormRef.current.toggleVisibility()
-    const blogObject = {
-      title: newTitle,
-      author: newAuthor,
-      url: newUrl,
-    }
-
-    blogService
-      .create(blogObject)
-      .then(data => {
-        setErrorMessage(`a new blog ${newTitle} by ${newAuthor} added`)
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 3000)
-        setBlogs(blogs.concat(data))
-        setNewTitle('')
-        setNewAuthor('')
-        setNewUrl('')
-      })
-  }
 
   if (user === null) {
     return (
@@ -103,9 +78,7 @@ const App = () => {
         <button type='button' onClick={handleLogout}>logout</button>
       </p>
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
-        <FormBlog
-          handleAdding={addBlog} handleTitle={({ target }) => setNewTitle(target.value)} handleAuthor={({ target }) => setNewAuthor(target.value)}
-          handleUrl={({ target }) => setNewUrl(target.value)} title={newTitle} author={newAuthor} url={newUrl} blogs={blogs}/>
+        <FormBlog setBlogs={setBlogs} setErrorMessage={setErrorMessage} blogs={blogs} blogFormRef={blogFormRef}/>
       </Togglable>
       {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
     </div>
