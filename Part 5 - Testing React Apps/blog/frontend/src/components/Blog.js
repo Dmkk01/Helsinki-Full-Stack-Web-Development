@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Blog = ({ blog, handleLikes }) => {
+const Blog = ({ blog, handleLikes, handleRemove }) => {
   const [expanded, setExpanded] = useState(false)
 
   const hideWhenExpanded = { display: expanded ? 'none' : '' }
@@ -24,6 +24,7 @@ const Blog = ({ blog, handleLikes }) => {
         <a href={blog.url}>{blog.url}</a> <br/>
         {blog.likes} likes  <button type='button' value={blog.id} onClick={handleLikes}>like</button><br/>
         added by {blog.username} <br/>
+        <button type='button' value={blog.id} onClick={handleRemove}>delete</button>
       </div>
     </div>
 )}
