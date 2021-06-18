@@ -25,7 +25,7 @@ const Blog = ({ blog, handleLikes, handleRemove }) => {
       <div style={showWhenExpaned} className="likesUrl" >
         {blog.title} {blog.author} <button onClick={() => setExpanded(!expanded)}> hide </button> <br/>
         <a href={blog.url}>{blog.url}</a> <br/>
-        {blog.likes} likes  <button type='button' value={blog.id} onClick={handleLikes}>like</button><br/>
+        {blog.likes} likes  <button type='button' value={blog.id} onClick={handleLikes}>like it</button><br/>
         added by {blog.username} <br/>
         <button type='button' value={blog.id} onClick={handleRemove}>delete</button>
       </div>

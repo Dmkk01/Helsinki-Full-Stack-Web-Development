@@ -23,4 +23,13 @@ describe('Blog', () => {
     fireEvent.click(button)
     expect(component.container.querySelector('.titleAuthor')).toHaveStyle('display: none')
   })
+
+  test('checking if it is possible to press the like button twice', () => {
+    const mockHandler = jest.fn()
+    component = render(<Blog blog={blog} handleLikes={mockHandler} handleRemove={handleRemove}/>)
+    const button = component.getByText('like it')
+    fireEvent.click(button)
+    fireEvent.click(button)
+    expect(mockHandler.mock.calls).toHaveLength(2)
+  })
 })
