@@ -19,10 +19,10 @@ const Blog = ({ blog, handleLikes, handleRemove }) => {
 
   return (
     <div style={blogStyle}>
-      <div style={hideWhenExpanded} >
+      <div style={hideWhenExpanded} className="titleAuthor">
         {blog.title} {blog.author} <button onClick={() => setExpanded(!expanded)}> view </button><br/>
       </div>
-      <div style={showWhenExpaned} >
+      <div style={showWhenExpaned} className="likesUrl" >
         {blog.title} {blog.author} <button onClick={() => setExpanded(!expanded)}> hide </button> <br/>
         <a href={blog.url}>{blog.url}</a> <br/>
         {blog.likes} likes  <button type='button' value={blog.id} onClick={handleLikes}>like</button><br/>
