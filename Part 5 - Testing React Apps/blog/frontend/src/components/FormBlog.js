@@ -37,15 +37,15 @@ const BlogForm = ({ blogFormRef, setBlogs, setErrorMessage, blogs }) => {
       <h2>Create a new Blog Post</h2>
       <form onSubmit={addBlog}>
         <div>
-            title: <input type="text" value={newTitle} name="Title" onChange={({ target }) => setNewTitle(target.value)}/>
+            title: <input className="title" type="text" value={newTitle} name="Title" onChange={({ target }) => setNewTitle(target.value)}/>
         </div>
         <div>
-            author: <input type="text" value={newAuthor} name="Author" onChange={({ target }) => setNewAuthor(target.value)}/>
+            author: <input className="author" type="text" value={newAuthor} name="Author" onChange={({ target }) => setNewAuthor(target.value)}/>
         </div>
         <div>
-            url: <input type="text" value={newUrl} name="URL" onChange={({ target }) => setNewUrl(target.value)}/>
+            url: <input className="url" type="text" value={newUrl} name="URL" onChange={({ target }) => setNewUrl(target.value)}/>
         </div>
-        <button type="submit">create</button>
+        <button className="toSend" type="submit">create</button>
       </form>
     </div>
   )

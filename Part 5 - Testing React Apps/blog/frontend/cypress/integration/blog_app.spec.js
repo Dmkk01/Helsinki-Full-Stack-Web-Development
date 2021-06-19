@@ -32,4 +32,22 @@ describe('Blog app', function() {
             cy.contains('Wrong username or password')
         })
       })
+
+    describe('When logged in', function() {
+    beforeEach(function() {
+        cy.get('.username').type('Dynia')
+        cy.get('.password').type('Dynia')
+        cy.get('.toLogin').click()
+    })
+
+    it('A blog can be created', function() {
+        cy.contains('new blog').click()
+        cy.get('.title').type('Dynia is nice')
+        cy.get('.author').type('Dynias are the best')
+        cy.get('.url').type('Dynia.com')
+        cy.get('.toSend').click()
+        cy.contains('a new blog')
+        cy.contains('Dynia is nice')
+    })
+    })
 })
