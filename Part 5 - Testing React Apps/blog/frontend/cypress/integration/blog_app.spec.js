@@ -49,5 +49,17 @@ describe('Blog app', function() {
         cy.contains('a new blog')
         cy.contains('Dynia is nice')
     })
+
+    it('A blog can be liked', function() {
+        cy.contains('new blog').click()
+        cy.get('.title').type('Dynia is nice')
+        cy.get('.author').type('Dynias are the best')
+        cy.get('.url').type('Dynia.com')
+        cy.get('.toSend').click()
+        cy.contains('view').click()
+        cy.contains('0 likes')
+        cy.contains('like it').click()
+        cy.contains('1 likes')
+    })
     })
 })
