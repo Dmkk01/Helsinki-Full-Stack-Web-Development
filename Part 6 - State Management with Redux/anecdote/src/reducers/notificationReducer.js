@@ -1,12 +1,12 @@
-export const displayNotification = (message) => ({
-    type: "DISPLAY",
-    data: message,
-  });
-
-  export const clearNotification = (notification) => ({
-    type: "CLEAR",
-  });
-
+export const setNotification = (message, duration) => {
+  return async (dispatch) => {
+    dispatch({
+      type: "DISPLAY",
+      data: message,
+    });
+    setTimeout(() => dispatch({type: "CLEAR"}) , duration * 1000);
+  };
+};
   
   
   const notificationReducer = (state = null, action) => {
