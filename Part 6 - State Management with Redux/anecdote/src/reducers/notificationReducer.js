@@ -1,10 +1,13 @@
 export const setNotification = (message, duration) => {
+  if (window.Timeout) {
+    window.clearTimeout(window._anecdotesNotificationTimeout);
+  }
   return async (dispatch) => {
     dispatch({
       type: "DISPLAY",
       data: message,
     });
-    setTimeout(() => dispatch({type: "CLEAR"}) , duration * 1000);
+    window.Timeout = setTimeout(() => dispatch({type: "CLEAR"}) , duration * 1000);
   };
 };
   
