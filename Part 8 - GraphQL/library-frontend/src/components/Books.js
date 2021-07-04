@@ -1,15 +1,30 @@
 import React from 'react'
 import { useQuery } from '@apollo/client';
-import { ALL_BOOKS } from '../queries'
+import { ALL_BOOKS, BOOKS_BY_GENRE } from '../queries'
 
-const Books = (props) => {
-  const result = useQuery(ALL_BOOKS)
-  let books = []
-  if (!props.show) {
+const Books = ({ client, show, result, books, recommended }) => {
+  if (((!show || (result && result.loading)) && !recommended)) {
     return null
   }
-  if (!result.loading) {
-    books = result.data.allBooks
+  books = books || result.data.allBooks
+
+  let genres = []
+  if (result) {
+    genres = Array.from(new Set([].concat.apply([], (books.map(b => b.genres || [])))))
+  }
+
+  const [filteredBooks, setFilteredBooks] = useState(books)
+
+  const filterBooks = async (genre) => {
+    if (genre) {
+      const { data } = await client.query({
+        query: BOOKS_BY_GENRE,
+        variables: { genre: genre }
+      })
+      setFilteredBooks(data.allBooks)
+    } else {
+      setFilteredBooks(books)
+    }
   }
 
   return (
@@ -27,7 +42,7 @@ const Books = (props) => {
               published
             </th>
           </tr>
-          {books.map(a =>
+          {filteredBooks.map(a =>
             <tr key={a.title}>
               <td>{a.title}</td>
               <td>{a.author}</td>
@@ -36,6 +51,10 @@ const Books = (props) => {
           )}
         </tbody>
       </table>
+      <div>
+        {!recommended ? <button onClick={() => filterBooks(null)}>all</button> : null}
+        {!recommended ? genres.map(g => <button key={g} onClick={() => filterBooks(g)}>{g}</button>) : null}
+      </div>
     </div>
   )
 }
