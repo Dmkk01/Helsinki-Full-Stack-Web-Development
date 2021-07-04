@@ -4,9 +4,10 @@ const mongoose = require('mongoose')
 const Book = require('./models/Book')
 const Author = require('./models/Author')
 const User = require('./models/User')
+require('dotenv').config()
 
 const JWT_SECRET = 'Insanely secret code'
-const MONGODB_URI = 'mongodb+srv://helsinkifullstack:reactdev@helsinkiwebdevelopment.tdi9t.mongodb.net/library-app?retryWrites=true&w=majority'
+const MONGODB_URI = process.env.MONGODB_URI
 
 console.log('connecting to:', MONGODB_URI)
 
