@@ -9,6 +9,7 @@ interface result {
 }
 
 const exerciseCalculator = (values: number[], target: number): result => {
+    
     const days = values.filter(a => a != 0 )
     const total = values.reduce((a, b) => a + b, 0);
     const average = total / values.length
@@ -39,6 +40,35 @@ const exerciseCalculator = (values: number[], target: number): result => {
         average: average
     }
 }
+interface processArgumentss {
+    numbers: number[];
+    target: number;
+}
 
-let numbers = [3, 0, 2, 4.5, 0, 3, 1];
-console.log(exerciseCalculator(numbers, 2));
+const parseArgumentss = (args: Array<string>): processArgumentss => {
+    if (args.length < 5) throw new Error('Not enough arguments');
+    const values = [];
+    for (var i = 3; i < args.length; i++) {
+        if (!isNaN(Number(args[i]))) {
+            values.push(Number(args[i]))
+        } else {
+            throw new Error('Provided values were not numbers!');
+        }
+    }
+    if (!isNaN(Number(args[2]))) {
+        return {
+            numbers: values,
+            target: Number(args[2])
+          }
+    } else {
+        throw new Error('Provided values were not numbers!');
+    }
+
+  }
+  try {
+    const { numbers, target } = parseArgumentss(process.argv);
+    console.log(exerciseCalculator(numbers, target));
+  } catch (e) {
+    console.log('Error, something bad happened, message: ', e.message);
+  }
+
