@@ -50,5 +50,6 @@ const parseArguments = (args: Array<string>): processArguments => {
     const { value1, value2 } = parseArguments(process.argv);
     console.log(calculateBmi(value1, value2));
   } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     console.log('Error, something bad happened, message: ', e.message);
   }

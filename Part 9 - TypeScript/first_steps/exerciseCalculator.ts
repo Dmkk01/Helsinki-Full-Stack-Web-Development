@@ -8,7 +8,7 @@ interface result {
     average: number
 }
 
-const exerciseCalculator = (values: number[], target: number): result => {
+export const exerciseCalculator = (values: number[], target: number): result => {
     
     const days = values.filter(a => a != 0 );
     const total = values.reduce((a, b) => a + b, 0);
@@ -69,6 +69,7 @@ const parseArgumentss = (args: Array<string>): processArgumentss => {
     const { numbers, target } = parseArgumentss(process.argv);
     console.log(exerciseCalculator(numbers, target));
   } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     console.log('Error, something bad happened, message: ', e.message);
   }
 
