@@ -1,6 +1,7 @@
 import React from "react";
 import { Segment, Icon } from "semantic-ui-react";
 import { HospitalEntry } from "../types";
+import styles from "./Hospital.module.css";
 
 import Date from "./Date";
 import Description from "./Description";
@@ -25,7 +26,7 @@ const Hospital: React.FC<HospitalProps> = ({ entry }) => {
 
       {entry.discharge && (
         <div>
-          <span>Discharge:</span>{" "}
+          <span className={styles.discharge}>Discharge:</span>{" "}
           <span>{entry.discharge.criteria}</span>{" "}
           <span>{entry.discharge.date}</span>
         </div>

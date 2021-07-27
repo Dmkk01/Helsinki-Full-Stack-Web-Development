@@ -5,6 +5,7 @@ import { OccupationalHealthcareEntry } from "../types";
 import Date from "./Date";
 import Description from "./Description";
 import Diagnoses from "./Diagnoses";
+import styles from "./OccupationalHealthcare.module.css";
 
 interface OccupationalHealthcareProps {
   entry: OccupationalHealthcareEntry;
@@ -19,7 +20,7 @@ const OccupationalHealthcare: React.FC<OccupationalHealthcareProps> = ({
         <span>
           <Icon name="stethoscope" size="large" />
         </span>
-        <span>{entry.employerName}</span>
+        <span className={styles.employer}>{entry.employerName}</span>
       </div>
 
       <Description>{entry.description}</Description>
